@@ -20,20 +20,43 @@ class App extends Component {
         { name: newName, age: 28 },
         { name: 'Manu', age: 29 },
         { name: 'Stephanie', age: 27 }
-      ]
+      ],
+      otherState: 'some other value',
+      showPersons: false
     });
   };
 
+ 
+ togglePersonsHandler = () => {
+   const doesShow = this.state.showPersons;
+   this.setState({showPersons: !doesShow});
+ }
+ 
   render() {
+   const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+   }
+
+
+
+
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
         {/* Pass 'Maximilian' as a parameter to switchNameHandler */}
-        <button onClick={this.switchNameHandler.bind(this, 'Maximilian')}>Switch Name</button>
+        <button 
+        style = {style}
+        onClick={this.togglePersonsHandler}>Switch Name</button>
 
         {/* Render Person components */}
-        <Person 
+    {this.state.showPersons ?
+    <div>
+    <Person 
           name={this.state.persons[0].name} 
           age={this.state.persons[0].age} 
         />
@@ -48,6 +71,9 @@ class App extends Component {
           name={this.state.persons[2].name} 
           age={this.state.persons[2].age} 
         />
+
+    </div> : null
+    }
       </div>
     );
   }
